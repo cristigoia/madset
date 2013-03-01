@@ -41,29 +41,18 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-/* 
-SKIPPING FOR FUTURE CLASSES
-SESSIONS w/ MongoDB (store sessions across multiple dynos)
-COOKIEHASH in your .env file (also share with heroku) 
-*/
-// app.use(express.cookieParser(process.env.COOKIEHASH));
-// app.use(express.session({ 
-//     store: new mongoStore({url:process.env.MONGOLAB_URI, maxAge: 300000})
-//     , secret: process.env.COOKIEHASH
-//   })
-// );
 
 // ROUTES
 var routes = require('./routes/index.js');
 app.get('/', routes.index);
-app.get('/astronauts/:astro_id', routes.detail);
 
-//new astronaut routes
-app.get('/create',routes.astroForm); //display form
-app.post('/create',routes.createAstro); //form POST submits here
+app.get('/updated', routes.updated);
+app.post('/',routes.postlibs); //form POST submits here
 
+//app.get('/astronauts/:astro_id', routes.detail);
 
 // create NodeJS HTTP server using 'app'
+
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });
